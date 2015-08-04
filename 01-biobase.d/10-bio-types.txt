@@ -1,0 +1,100 @@
+# Define general biology related terms
+[typedefs]
+bio.pubmed                = Any term that can be used for searching Pubmed
+
+bio.gene.hugo             = The official HUGO symbol for a gene
+
+bio.gene.unigene          = A Unigene CID
+
+bio.gene.entrezid         = The official EntrezID for a gene
+
+bio.mirna                 = An miRNA identifier
+
+bio.meth.infinium.probe   = An Infinium methylation probe identifier
+
+bio.agilent.feature.id    = An Agilent feature id
+
+bio.affymetrix.probe.id   = An Affymetrix probe id
+
+bio.transcriptid.gene     = A transcipt ID followed by a gene symbol (no separator)
+
+bio.geo.acc.id            = A Gene Expression Omnibus (GEO) accession id
+
+bio.go.id                 = A Gene Ontology (GO) identifier
+
+bio.mdacc.pathwayid       = An MD Anderson pathway identifier
+
+# Compound types:
+bio.gene.hugo.bar.entrezid = A bio.gene.hugo and a bio.gene.entrezid separated by a vertical bar
+bio.gene.hugo.bar.agilentid = A bio.gene.hugo and a bio.agilent.feature.id separated by a vertical bar
+bio.meth.infinium.probe.bar.bio.gene.hugo = A bio.meth.infinium.probe and a bio.gene.hugo separated by a vertical bar
+bio.gene.hugo.bar.unigene.bar.affyid = A bio.gene.hugo, a bio.gene.unigene, and a bio.affymetrix.probe.id separated by a vertical bar
+
+[typemap]
+srctype=bio.gene.hugo.bar.unigene.bar.affyid
+dsttype=bio.gene.hugo
+fieldsep=|
+field=0
+
+[typemap]
+srctype=bio.gene.hugo.bar.unigene.bar.affyid
+dsttype=bio.gene.unigene
+fieldsep=|
+field=1
+
+[typemap]
+srctype=bio.gene.hugo.bar.unigene.bar.affyid
+dsttype=bio.affymetrix.probe.id
+fieldsep=|
+field=2
+
+[typemap]
+srctype=bio.gene.hugo.bar.entrezid,bio.gene.hugo.bar.agilent.feature.id
+dsttype=bio.gene.hugo
+fieldsep=|
+field=0
+
+[typemap]
+srctype=bio.gene.hugo.bar.entrezid
+dsttype=bio.gene.entrezid
+fieldsep=|
+field=1
+
+[typemap]
+srctype=bio.gene.hugo.bar.agilent.feature.id
+dsttype=bio.agilent.feature.id
+fieldsep=|
+field=1
+
+[typemap]
+srctype=bio.meth.infinium.probe.bar.bio.gene.hugo
+dsttype=bio.meth.infinium.probe
+fieldsep=|
+field=0
+
+[typemap]
+srctype=bio.meth.infinium.probe.bar.bio.gene.hugo
+dsttype=bio.gene.hugo
+fieldsep=|
+field=1
+
+[typemap]
+srctype=bio.transcriptid.gene
+dsttype=bio.gene.hugo
+stringop=replace(/^ENST[0-9]*/,"")
+
+[typemap]
+srctype=bio.transcriptid.gene
+dsttype=bio.transcriptid
+stringop=replace(/^(ENST[0-9]*).*/,"$1")
+
+[typemap]
+srctype=bio.gene.hugo
+dsttype=bio.pubmed
+stringop=substring(0)
+
+[typemap]
+srctype=bio.gene.hugo,bio.mirna,bio.pubmed
+dsttype=scholar
+stringop=substring(0)
+
