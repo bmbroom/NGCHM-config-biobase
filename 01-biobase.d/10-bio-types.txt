@@ -10,11 +10,15 @@ bio.gene.entrezid         = The official EntrezID for a gene
 
 bio.mirna                 = An miRNA identifier
 
+bio.mirna.mimat           = An miRNA MIMAT accession ID
+
 bio.meth.infinium.probe   = An Infinium methylation probe identifier
 
 bio.agilent.feature.id    = An Agilent feature id
 
 bio.affymetrix.probe.id   = An Affymetrix probe id
+
+bio.illumina.probe.id     = An Illumina probe id
 
 bio.transcriptid.gene     = A transcipt ID followed by a gene symbol (no separator)
 
@@ -27,8 +31,10 @@ bio.mdacc.pathwayid       = An MD Anderson pathway identifier
 # Compound types:
 bio.gene.hugo.bar.entrezid = A bio.gene.hugo and a bio.gene.entrezid separated by a vertical bar
 bio.gene.hugo.bar.agilentid = A bio.gene.hugo and a bio.agilent.feature.id separated by a vertical bar
+bio.gene.hugo.bar.illuminaid = A bio.gene.hugo and a bio.illumina.probe.id separated by a vertical bar
 bio.meth.infinium.probe.bar.bio.gene.hugo = A bio.meth.infinium.probe and a bio.gene.hugo separated by a vertical bar
 bio.gene.hugo.bar.unigene.bar.affyid = A bio.gene.hugo, a bio.gene.unigene, and a bio.affymetrix.probe.id separated by a vertical bar
+bio.agilent.id.colon.gene.hugo = A bio.agilent.feature.id, a colon, and a bio.gene.hugo
 
 [typemap]
 srctype=bio.gene.hugo.bar.unigene.bar.affyid
@@ -49,7 +55,7 @@ fieldsep=|
 field=2
 
 [typemap]
-srctype=bio.gene.hugo.bar.entrezid,bio.gene.hugo.bar.agilent.feature.id
+srctype=bio.gene.hugo.bar.entrezid,bio.gene.hugo.bar.agilentid,bio.gene.hugo.bar.illuminaid
 dsttype=bio.gene.hugo
 fieldsep=|
 field=0
@@ -61,8 +67,14 @@ fieldsep=|
 field=1
 
 [typemap]
-srctype=bio.gene.hugo.bar.agilent.feature.id
+srctype=bio.gene.hugo.bar.agilentid
 dsttype=bio.agilent.feature.id
+fieldsep=|
+field=1
+
+[typemap]
+srctype=bio.gene.hugo.bar.illuminaid
+dsttype=bio.illumina.probe.id
 fieldsep=|
 field=1
 
@@ -98,3 +110,26 @@ srctype=bio.gene.hugo,bio.mirna,bio.pubmed
 dsttype=scholar
 stringop=substring(0)
 
+[typemap]
+srctype=bio.agilent.id.colon.gene.hugo
+dsttype=bio.agilent.feature.id
+fieldsep=:
+field=0
+
+[typemap]
+srctype=bio.agilent.id.colon.gene.hugo
+dsttype=bio.gene.hugo
+fieldsep=:
+field=1
+
+[typemap]
+srctype=bio.mirna.bar.mimat
+dsttype=bio.mirna
+fieldsep=|
+field=0
+
+[typemap]
+srctype=bio.mirna.bar.mimat
+dsttype=bio.mirna.mimat
+fieldsep=|
+field=1
