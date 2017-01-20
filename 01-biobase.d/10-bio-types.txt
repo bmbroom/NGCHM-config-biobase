@@ -2,6 +2,8 @@
 [typedefs]
 bio.pubmed                = Any term that can be used for searching Pubmed
 
+bio.pubmed.id             = A Pubmed identifier
+
 bio.gene.hugo             = The official HUGO symbol for a gene
 
 bio.gene.unigene          = A Unigene CID
@@ -27,6 +29,9 @@ bio.geo.acc.id            = A Gene Expression Omnibus (GEO) accession id
 bio.go.id                 = A Gene Ontology (GO) identifier
 
 bio.mdacc.pathwayid       = An MD Anderson pathway identifier
+
+bio.protein.uniprotid     = A UniProt protein identifier
+
 
 # Compound types:
 bio.gene.hugo.bar.entrezid = A bio.gene.hugo and a bio.gene.entrezid separated by a vertical bar
